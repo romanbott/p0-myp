@@ -1,5 +1,8 @@
 #include <stdbool.h>
 #include <stdio.h>
+#include <string.h>
+
+#define LONGITUD_NOMBRE 30
 
 #define NUM_CALIFICACIONES 3
 
@@ -17,16 +20,28 @@ float calcular_promedio(float calificaciones[], size_t cantidad) {
   return suma / cantidad;
 }
 
-bool esta_aprobado(float promedio) {
-    return promedio >= 6.0f;
+bool esta_aprobado(float promedio) { return promedio >= 6.0f; }
+
+static void leer_nombre(char *destino, size_t tamano) {
+  printf("Ingrese el nombre del estudiante: ");
+  if (fgets(destino, tamano, stdin) != NULL) {
+    size_t len = strlen(destino);
+    if (len > 0 && destino[len - 1] == '\n') {
+      destino[len - 1] = '\0';
+    }
+  }
 }
 
 int main(void) {
+  char nombre[LONGITUD_NOMBRE];
+
+  leer_nombre(nombre, sizeof(nombre));
+
   float calificaciones[NUM_CALIFICACIONES] = {7.0, 9.0, 0.0};
 
   float promedio = calcular_promedio(calificaciones, NUM_CALIFICACIONES);
 
-  mostrar_resultado("Juan Rulfo", promedio, esta_aprobado(promedio));
+  mostrar_resultado(nombre, promedio, esta_aprobado(promedio));
 
   return 0;
 }
