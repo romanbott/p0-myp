@@ -17,12 +17,16 @@ float calcular_promedio(float calificaciones[], size_t cantidad) {
   return suma / cantidad;
 }
 
+bool esta_aprobado(float promedio) {
+    return promedio >= 6.0f;
+}
+
 int main(void) {
-  float calificaciones[NUM_CALIFICACIONES] = {7.0, 9.0, 10.0};
+  float calificaciones[NUM_CALIFICACIONES] = {7.0, 9.0, 0.0};
 
   float promedio = calcular_promedio(calificaciones, NUM_CALIFICACIONES);
 
-  mostrar_resultado("Juan Rulfo", promedio, true);
+  mostrar_resultado("Juan Rulfo", promedio, esta_aprobado(promedio));
 
   return 0;
 }
